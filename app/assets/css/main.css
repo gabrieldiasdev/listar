@@ -1,0 +1,27 @@
+@import 'tailwindcss';
+@import '@nuxt/ui';
+
+@theme static {
+  --color-background: hsl(240, 5%, 96%);
+  --color-foreground: hsl(215, 28%, 17%);
+  --color-border: hsl(240 5.9% 90%);
+  --font-sans: 'Inter', sans-serif;
+}
+
+@layer utilities {
+  .custom-bg {
+    background-image: url('/assets/bg-food-top.png');
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-size: auto;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}

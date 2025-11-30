@@ -13,18 +13,18 @@ export default defineNuxtConfig({
     registerType: 'autoUpdate',
     manifest: {
       name: 'Listar',
-      short_name: 'nome simplificado do APP',
+      short_name: 'Listar',
       theme_color: '#ffffff',
       start_url: '/',
       lang: 'pt-br',
-      description: 'descrição do seu APP',
+      description: 'Lista de compras',
       screenshots: [
         {
           src: 'manifest/home-screen.png',
           sizes: '320x320',
           type: 'image/png',
           form_factor: 'wide',
-          label: 'nome simplificado do APP',
+          label: 'Listar',
         },
       ],
       icons: [

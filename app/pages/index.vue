@@ -2,10 +2,13 @@
 import type { SupabaseClient } from '@supabase/supabase-js'
 const supabaseClient = useSupabase() as SupabaseClient
 
+const loading = ref<boolean>(false)
 const items = ref<any[]>([])
 let channel: ReturnType<typeof supabaseClient.channel> | null = null
 
 async function getListItems() {
+  loading.value = true
+
   const { data, error } = await supabaseClient
     .from('list')
     .select(
@@ -24,6 +27,8 @@ async function getListItems() {
       category: item.items.category,
       bought: item.bought,
     }))
+
+    loading.value = false
   }
 }
 
@@ -93,7 +98,16 @@ onMounted(async () => {
   <div class="h-full w-full flex flex-col justify-between items-center pt-16">
     <div class="w-full">
       <h1 class="text-2xl font-bold">Lista de compras</h1>
+      <div v-if="loading" class="mt-12 w-full flex flex-col gap-2">
+        <USkeleton
+          v-for="i in 4"
+          :key="i"
+          class="w-full h-16 bg-pink-50 opacity-50 border border-pink-200 rounded-lg"
+        />
+      </div>
+
       <div
+        v-else
         class="mt-12 w-full flex flex-col items-center gap-2 max-h-[calc(100vh-248px)] overflow-y-auto"
       >
         <ListItem
@@ -113,7 +127,8 @@ onMounted(async () => {
         <UButton
           icon="i-lucide-plus"
           size="lg"
-          class="bg-pink-500 text-white text-2xl rounded-full"
+          class="bg-pink-500 text-white text-2xl rounded-full disabled:opacity-50"
+          :disabled="loading"
         />
 
         <template #content>
